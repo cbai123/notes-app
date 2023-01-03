@@ -4,7 +4,7 @@
   "description": "A simple notes app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx jest",
     "build": "esbuild index.js --bundle  --outfile=bundle.js --watch"
   },
   "repository": {
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/cbai123/notes-app#readme",
   "dependencies": {
+    "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1"
   }
 }
