@@ -54,5 +54,24 @@ describe('NotesView class', () => {
     button.click();
 
     expect(document.querySelector('div.note').textContent).toEqual('hello notes');
+  });
+
+  it('displays the correct number of notes', () => {
+    const model = new NotesModel();
+    const view = new NotesView(model);
+
+    const input = document.querySelector('#note-input');
+    const button = document.querySelector('#add-note-btn');
+    
+    input.value = 'hello notes';
+    button.click();
+
+    input.value = 'hey';
+    button.click();
+
+    input.value = 'there';
+    button.click();
+
+    expect(document.querySelectorAll('div.note').length).toBe(3);
   })
 })

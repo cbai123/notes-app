@@ -8,11 +8,14 @@ class NotesView{
 
     this.button.addEventListener('click', () => {
       this.model.addNote(this.input.value);
-      this.updateNotes();
+      this.displayNotes();
+      this.input.value = '';
     });
   }
   displayNotes() {
-    this.mainContainerEl.innerHTML = '';
+    document.querySelectorAll('.note').forEach( note => {
+      note.remove();
+    });
 
     this.model.getNotes().forEach(note => {
       const newNote = document.createElement('div');
@@ -20,15 +23,6 @@ class NotesView{
       newNote.textContent = note;
       this.mainContainerEl.append(newNote);
   });
-  }
-
-  updateNotes() {
-    const note = this.model.getNotes().at(-1);
-    console.log(note)
-    const newNote = document.createElement('div');
-    newNote.className = 'note';
-    newNote.textContent = note;
-    this.mainContainerEl.append(newNote);
   }
 }
 
