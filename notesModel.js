@@ -14,6 +14,10 @@ class NotesModel {
   reset() {
     this.list = [];
   }
+
+  setNotes(notes) {
+    this.list = notes;
+  }
 }
 
 module.exports = NotesModel;

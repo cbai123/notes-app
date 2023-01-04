@@ -20,6 +20,7 @@
   "homepage": "https://github.com/cbai123/notes-app#readme",
   "dependencies": {
     "jest": "^29.3.1",
-    "jest-environment-jsdom": "^29.3.1"
+    "jest-environment-jsdom": "^29.3.1",
+    "jest-fetch-mock": "^3.0.3"
   }
 }

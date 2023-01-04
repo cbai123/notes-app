@@ -4,6 +4,7 @@
  */
 
 const fs = require('fs');
+const NotesClient = require('./NotesClient');
 const NotesModel = require("./notesModel")
 const NotesView = require('./notesView');
 
@@ -73,5 +74,29 @@ describe('NotesView class', () => {
     button.click();
 
     expect(document.querySelectorAll('div.note').length).toBe(3);
+  })
+
+  it('gets notes from an api', (done) => {
+    const model = new NotesModel();
+    const client = {
+      loadNotes: (callback) => callback(['this is a note'])
+    };
+    const view = new NotesView(model, client);
+
+    view.displayNotesFromApi();
+    expect(document.querySelector('div.note').textContent).toEqual('this is a note');
+    done();
+  });
+
+  it('gets multiple notes from an api', () => {
+    const model = new NotesModel();
+    const client = {
+      loadNotes: (callback) => callback(['this is a note', 'so is this'])
+    };
+    const view = new NotesView(model, client);
+
+    view.displayNotesFromApi();
+
+    expect(document.querySelectorAll('div.note').length).toBe(2);
   })
 })
