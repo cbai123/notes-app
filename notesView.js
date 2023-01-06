@@ -25,7 +25,9 @@ class NotesView{
     this.model.getNotes().forEach(note => {
       const newNote = document.createElement('div');
       newNote.className = 'note';
-      newNote.textContent = note;
+      this.client.emojify(note, (data) => {
+        newNote.textContent = data;
+      });
       this.mainContainerEl.append(newNote);
   });
   }

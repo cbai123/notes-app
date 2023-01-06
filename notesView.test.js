@@ -23,7 +23,10 @@ describe('NotesView class', () => {
 
   it('displays correctly with one note', () => {
     const model = new NotesModel();
-    const view = new NotesView(model);
+    const client = {
+      emojify: (note, callback) => callback(note)
+    }
+    const view = new NotesView(model, client);
 
     model.addNote('Hello');
 
@@ -34,7 +37,10 @@ describe('NotesView class', () => {
 
   it('displays correctly with multiple notes', () => {
     const model = new NotesModel();
-    const view = new NotesView(model);
+    const client = {
+      emojify: (note, callback) => callback(note)
+    }
+    const view = new NotesView(model, client);
 
     model.addNote('Hello');
     model.addNote('World!');
@@ -48,7 +54,8 @@ describe('NotesView class', () => {
     const model = new NotesModel();
     const client = {
       createNote: (note) => model.addNote(note),
-      loadNotes: (callback) => callback(model.getNotes())
+      loadNotes: (callback) => callback(model.getNotes()),
+      emojify: (note, callback) => callback(note)
     };
     const view = new NotesView(model, client);
 
@@ -65,7 +72,8 @@ describe('NotesView class', () => {
     const model = new NotesModel();
     const client = {
       createNote: (note) => model.addNote(note),
-      loadNotes: (callback) => callback(model.getNotes())
+      loadNotes: (callback) => callback(model.getNotes()),
+      emojify: (note, callback) => callback(note)
     };
     const view = new NotesView(model, client);
 
@@ -87,7 +95,8 @@ describe('NotesView class', () => {
   it('gets notes from an api', (done) => {
     const model = new NotesModel();
     const client = {
-      loadNotes: (callback) => callback(['this is a note'])
+      loadNotes: (callback) => callback(['this is a note']),
+      emojify: (note, callback) => callback(note)
     };
     const view = new NotesView(model, client);
 
@@ -99,7 +108,8 @@ describe('NotesView class', () => {
   it('gets multiple notes from an api', () => {
     const model = new NotesModel();
     const client = {
-      loadNotes: (callback) => callback(['this is a note', 'so is this'])
+      loadNotes: (callback) => callback(['this is a note', 'so is this']),
+      emojify: (note, callback) => callback(note)
     };
     const view = new NotesView(model, client);
 
