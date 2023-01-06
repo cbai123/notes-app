@@ -5,16 +5,21 @@ class NotesView{
 
     this.mainContainerEl = document.querySelector('#main-container');
 
-    this.input = document.querySelector('#note-input')
+    this.input = document.querySelector('#note-input');
     this.button = document.querySelector('#add-note-btn');
+    this.clearButton = document.querySelector('#clear-btn');
 
     this.button.addEventListener('click', () => {
-      // console.log(this.input.value)
       this.client.createNote(this.input.value, () => {
         this.displayError()
       });
       this.displayNotesFromApi();
       this.input.value = '';
+    });
+
+    this.clearButton.addEventListener('click', () => {
+      this.client.resetNotes();
+      this.displayNotesFromApi();
     });
   }
   displayNotes() {

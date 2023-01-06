@@ -30,6 +30,12 @@ class NotesClient {
       .then(response => response.json())
       .then(data => callback(data.emojified_text))
     }
+
+    resetNotes() {
+      fetch('http://localhost:3000/notes', {
+        method: 'DELETE'
+      })
+    }
   }
   
 module.exports = NotesClient;
