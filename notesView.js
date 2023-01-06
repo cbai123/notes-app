@@ -9,7 +9,10 @@ class NotesView{
     this.button = document.querySelector('#add-note-btn');
 
     this.button.addEventListener('click', () => {
-      this.client.createNote(this.input.value);
+      // console.log(this.input.value)
+      this.client.createNote(this.input.value, () => {
+        this.displayError()
+      });
       this.displayNotesFromApi();
       this.input.value = '';
     });
@@ -30,9 +33,17 @@ class NotesView{
   displayNotesFromApi() {
     this.client.loadNotes(data => {
       this.model.setNotes(data);
-      console.log(this.model.getNotes())
       this.displayNotes();
+    }, () => {
+      this.displayError();
     });
+  }
+
+  displayError() {
+    const errorMessageEl = document.createElement('div');
+    errorMessageEl.className = 'error';
+    errorMessageEl.textContent = 'The server might not be running';
+    this.mainContainerEl.append(errorMessageEl);
   }
 }
 

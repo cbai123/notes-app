@@ -46,7 +46,11 @@ describe('NotesView class', () => {
 
   it('correctly displays an inputted note using a click', () => {
     const model = new NotesModel();
-    const view = new NotesView(model);
+    const client = {
+      createNote: (note) => model.addNote(note),
+      loadNotes: (callback) => callback(model.getNotes())
+    };
+    const view = new NotesView(model, client);
 
     const input = document.querySelector('#note-input');
     const button = document.querySelector('#add-note-btn');
@@ -59,7 +63,11 @@ describe('NotesView class', () => {
 
   it('displays the correct number of notes', () => {
     const model = new NotesModel();
-    const view = new NotesView(model);
+    const client = {
+      createNote: (note) => model.addNote(note),
+      loadNotes: (callback) => callback(model.getNotes())
+    };
+    const view = new NotesView(model, client);
 
     const input = document.querySelector('#note-input');
     const button = document.querySelector('#add-note-btn');
@@ -98,5 +106,14 @@ describe('NotesView class', () => {
     view.displayNotesFromApi();
 
     expect(document.querySelectorAll('div.note').length).toBe(2);
-  })
+  });
+
+  it('displays an error when something goes wrong', () => {
+    const model = new NotesModel();
+    const view = new NotesView(model);
+
+    view.displayError();
+
+    expect(document.querySelector('div.error').textContent).toEqual('The server might not be running');
+  });
 })
